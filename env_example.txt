@@ -1,0 +1,37 @@
+# Database Configuration
+DATABASE_URL=sqlite:///./black_germ.db
+
+# Security Configuration
+SECRET_KEY=your-super-secret-key-change-this-in-production
+ALGORITHM=HS256
+ACCESS_TOKEN_EXPIRE_MINUTES=30
+
+# Platform Configuration
+TRANSACTION_FEE_PERCENTAGE=0.02
+MIN_TRANSACTION_AMOUNT=1.0
+MAX_TRANSACTION_AMOUNT=10000.0
+WITHDRAWAL_APPROVAL_THRESHOLD=1000.0
+
+# AI Configuration
+OPENAI_API_KEY=your-openai-api-key-here
+
+# Mobile Money Configuration
+MTN_API_KEY=your-mtn-api-key
+ORANGE_API_KEY=your-orange-api-key
+
+# Email Configuration
+SMTP_HOST=smtp.gmail.com
+SMTP_PORT=587
+SMTP_USERNAME=your-email@gmail.com
+SMTP_PASSWORD=your-app-password
+
+# CORS Configuration
+ALLOWED_ORIGINS=http://localhost:3000,http://localhost:3001
+
+# Web3 Configuration
+TRON_NETWORK=mainnet
+BSC_NETWORK=mainnet
+PLATFORM_TRC20_WALLET=TYourPlatformWalletAddress
+PLATFORM_BEP20_WALLET=0xYourPlatformWalletAddress
+PLATFORM_TRC20_PRIVATE_KEY=your_tron_private_key_here
+PLATFORM_BEP20_PRIVATE_KEY=your_bsc_private_key_here 

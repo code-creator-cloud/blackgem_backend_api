@@ -1,0 +1,195 @@
+2025-09-24 05:15:46,722 - INFO - Black Germ Database Migration Started
+2025-09-24 05:15:46,722 - INFO - ==================================================
+2025-09-24 05:15:46,722 - INFO - Starting database migration...
+2025-09-24 05:15:46,727 - INFO - Current users table columns: ['id', 'email', 'hashed_password', 'balance', 'wallet_address', 'created_at', 'updated_at', 'status']
+2025-09-24 05:15:46,727 - INFO - Status column already exists
+2025-09-24 05:15:46,727 - INFO - Adding username column to users table...
+2025-09-24 05:15:46,797 - INFO - Adding NOT NULL constraint and unique index for username...
+2025-09-24 05:15:46,917 - ERROR - Migration failed: (sqlite3.IntegrityError) NOT NULL constraint failed: users_temp.username
+[SQL: 
+                INSERT INTO users_temp (id, email, hashed_password, balance, wallet_address, status, created_at, updated_at)
+                SELECT id, email, hashed_password, balance, wallet_address, status, created_at, updated_at
+                FROM users
+            ]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+Traceback (most recent call last):
+  File "/home/eddy/Documents/we_page/Blackgem-project/black_germ_backend/venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1963, in _exec_single_context
+    self.dialect.do_execute(
+  File "/home/eddy/Documents/we_page/Blackgem-project/black_germ_backend/venv/lib/python3.12/site-packages/sqlalchemy/engine/default.py", line 943, in do_execute
+    cursor.execute(statement, parameters)
+sqlite3.IntegrityError: NOT NULL constraint failed: users_temp.username
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/eddy/Documents/we_page/Blackgem-project/black_germ_backend/migrate_db.py", line 65, in migrate_database
+    db.execute(text("""
+  File "/home/eddy/Documents/we_page/Blackgem-project/black_germ_backend/venv/lib/python3.12/site-packages/sqlalchemy/orm/session.py", line 2365, in execute
+    return self._execute_internal(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/eddy/Documents/we_page/Blackgem-project/black_germ_backend/venv/lib/python3.12/site-packages/sqlalchemy/orm/session.py", line 2260, in _execute_internal
+    result = conn.execute(
+             ^^^^^^^^^^^^^
+  File "/home/eddy/Documents/we_page/Blackgem-project/black_germ_backend/venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1415, in execute
+    return meth(
+           ^^^^^
+  File "/home/eddy/Documents/we_page/Blackgem-project/black_germ_backend/venv/lib/python3.12/site-packages/sqlalchemy/sql/elements.py", line 523, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/eddy/Documents/we_page/Blackgem-project/black_germ_backend/venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1637, in _execute_clauseelement
+    ret = self._execute_context(
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/eddy/Documents/we_page/Blackgem-project/black_germ_backend/venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1842, in _execute_context
+    return self._exec_single_context(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/eddy/Documents/we_page/Blackgem-project/black_germ_backend/venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1982, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/home/eddy/Documents/we_page/Blackgem-project/black_germ_backend/venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 2351, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/home/eddy/Documents/we_page/Blackgem-project/black_germ_backend/venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1963, in _exec_single_context
+    self.dialect.do_execute(
+  File "/home/eddy/Documents/we_page/Blackgem-project/black_germ_backend/venv/lib/python3.12/site-packages/sqlalchemy/engine/default.py", line 943, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.IntegrityError: (sqlite3.IntegrityError) NOT NULL constraint failed: users_temp.username
+[SQL: 
+                INSERT INTO users_temp (id, email, hashed_password, balance, wallet_address, status, created_at, updated_at)
+                SELECT id, email, hashed_password, balance, wallet_address, status, created_at, updated_at
+                FROM users
+            ]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+2025-09-24 05:15:46,943 - INFO - Verifying database structure...
+2025-09-24 05:15:46,945 - INFO - Users table columns: ['id', 'email', 'hashed_password', 'balance', 'wallet_address', 'created_at', 'updated_at', 'status', 'username']
+2025-09-24 05:15:46,946 - INFO - Admins table columns: ['id', 'email', 'hashed_password', 'role', 'permissions', 'is_active', 'last_login', 'created_at', 'updated_at']
+2025-09-24 05:15:46,947 - INFO - Transactions table columns: ['id', 'user_id', 'type', 'amount', 'status', 'transaction_hash', 'wallet_address', 'timestamp', 'notes', 'currency', 'transaction_id', 'phone_number', 'provider', 'description', 'updated_at', 'created_at', 'network', 'deposit_address_id']
+2025-09-24 05:15:46,948 - INFO - Total users: 9
+2025-09-24 05:15:46,950 - INFO - Total admins: 1
+2025-09-24 05:15:46,951 - INFO - Total transactions: 0
+2025-09-24 05:15:46,952 - INFO - 
+Migration process completed!
+2025-09-24 05:15:46,952 - INFO - Next steps:
+2025-09-24 05:15:46,953 - INFO - 1. Restart the server if it's running
+2025-09-24 05:15:46,953 - INFO - 2. Run the test again: python3 test_admin.py
+2025-09-24 05:18:24,789 - INFO - Black Germ Database Migration Started
+2025-09-24 05:18:24,789 - INFO - ==================================================
+2025-09-24 05:18:24,789 - INFO - Starting database migration...
+2025-09-24 05:18:24,793 - INFO - Current users table columns: []
+2025-09-24 05:18:24,793 - INFO - Adding status column to users table...
+2025-09-24 05:18:24,793 - ERROR - Migration failed: (sqlite3.OperationalError) no such table: users
+[SQL: ALTER TABLE users ADD COLUMN status VARCHAR DEFAULT 'active']
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+Traceback (most recent call last):
+  File "/home/eddy/Documents/we_page/Blackgem-project/black_germ_backend/venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1963, in _exec_single_context
+    self.dialect.do_execute(
+  File "/home/eddy/Documents/we_page/Blackgem-project/black_germ_backend/venv/lib/python3.12/site-packages/sqlalchemy/engine/default.py", line 943, in do_execute
+    cursor.execute(statement, parameters)
+sqlite3.OperationalError: no such table: users
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/eddy/Documents/we_page/Blackgem-project/black_germ_backend/migrate_db.py", line 40, in migrate_database
+    db.execute(text("ALTER TABLE users ADD COLUMN status VARCHAR DEFAULT 'active'"))
+  File "/home/eddy/Documents/we_page/Blackgem-project/black_germ_backend/venv/lib/python3.12/site-packages/sqlalchemy/orm/session.py", line 2365, in execute
+    return self._execute_internal(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/eddy/Documents/we_page/Blackgem-project/black_germ_backend/venv/lib/python3.12/site-packages/sqlalchemy/orm/session.py", line 2260, in _execute_internal
+    result = conn.execute(
+             ^^^^^^^^^^^^^
+  File "/home/eddy/Documents/we_page/Blackgem-project/black_germ_backend/venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1415, in execute
+    return meth(
+           ^^^^^
+  File "/home/eddy/Documents/we_page/Blackgem-project/black_germ_backend/venv/lib/python3.12/site-packages/sqlalchemy/sql/elements.py", line 523, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/eddy/Documents/we_page/Blackgem-project/black_germ_backend/venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1637, in _execute_clauseelement
+    ret = self._execute_context(
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/eddy/Documents/we_page/Blackgem-project/black_germ_backend/venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1842, in _execute_context
+    return self._exec_single_context(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/eddy/Documents/we_page/Blackgem-project/black_germ_backend/venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1982, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/home/eddy/Documents/we_page/Blackgem-project/black_germ_backend/venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 2351, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/home/eddy/Documents/we_page/Blackgem-project/black_germ_backend/venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1963, in _exec_single_context
+    self.dialect.do_execute(
+  File "/home/eddy/Documents/we_page/Blackgem-project/black_germ_backend/venv/lib/python3.12/site-packages/sqlalchemy/engine/default.py", line 943, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.OperationalError: (sqlite3.OperationalError) no such table: users
+[SQL: ALTER TABLE users ADD COLUMN status VARCHAR DEFAULT 'active']
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-09-24 05:18:24,798 - INFO - Verifying database structure...
+2025-09-24 05:18:24,799 - INFO - Users table columns: []
+2025-09-24 05:18:24,799 - INFO - Admins table columns: []
+2025-09-24 05:18:24,800 - INFO - Transactions table columns: []
+2025-09-24 05:18:24,800 - ERROR - Verification failed: (sqlite3.OperationalError) no such table: users
+[SQL: SELECT COUNT(*) FROM users]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+Traceback (most recent call last):
+  File "/home/eddy/Documents/we_page/Blackgem-project/black_germ_backend/venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1963, in _exec_single_context
+    self.dialect.do_execute(
+  File "/home/eddy/Documents/we_page/Blackgem-project/black_germ_backend/venv/lib/python3.12/site-packages/sqlalchemy/engine/default.py", line 943, in do_execute
+    cursor.execute(statement, parameters)
+sqlite3.OperationalError: no such table: users
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/eddy/Documents/we_page/Blackgem-project/black_germ_backend/migrate_db.py", line 126, in verify_database
+    result = db.execute(text("SELECT COUNT(*) FROM users"))
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/eddy/Documents/we_page/Blackgem-project/black_germ_backend/venv/lib/python3.12/site-packages/sqlalchemy/orm/session.py", line 2365, in execute
+    return self._execute_internal(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/eddy/Documents/we_page/Blackgem-project/black_germ_backend/venv/lib/python3.12/site-packages/sqlalchemy/orm/session.py", line 2260, in _execute_internal
+    result = conn.execute(
+             ^^^^^^^^^^^^^
+  File "/home/eddy/Documents/we_page/Blackgem-project/black_germ_backend/venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1415, in execute
+    return meth(
+           ^^^^^
+  File "/home/eddy/Documents/we_page/Blackgem-project/black_germ_backend/venv/lib/python3.12/site-packages/sqlalchemy/sql/elements.py", line 523, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/eddy/Documents/we_page/Blackgem-project/black_germ_backend/venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1637, in _execute_clauseelement
+    ret = self._execute_context(
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/eddy/Documents/we_page/Blackgem-project/black_germ_backend/venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1842, in _execute_context
+    return self._exec_single_context(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/eddy/Documents/we_page/Blackgem-project/black_germ_backend/venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1982, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/home/eddy/Documents/we_page/Blackgem-project/black_germ_backend/venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 2351, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/home/eddy/Documents/we_page/Blackgem-project/black_germ_backend/venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1963, in _exec_single_context
+    self.dialect.do_execute(
+  File "/home/eddy/Documents/we_page/Blackgem-project/black_germ_backend/venv/lib/python3.12/site-packages/sqlalchemy/engine/default.py", line 943, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.OperationalError: (sqlite3.OperationalError) no such table: users
+[SQL: SELECT COUNT(*) FROM users]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-09-24 05:18:24,803 - INFO - 
+Migration process completed!
+2025-09-24 05:18:24,803 - INFO - Next steps:
+2025-09-24 05:18:24,803 - INFO - 1. Restart the server if it's running
+2025-09-24 05:18:24,803 - INFO - 2. Run the test again: python3 test_admin.py
+2025-09-24 05:20:29,946 - INFO - Black Germ Database Migration Started
+2025-09-24 05:20:29,946 - INFO - ==================================================
+2025-09-24 05:20:29,946 - INFO - Starting database migration...
+2025-09-24 05:20:29,948 - INFO - Users table does not exist, creating all tables...
+2025-09-24 05:20:32,327 - INFO - All tables created successfully
+2025-09-24 05:20:32,330 - INFO - Admin tables already exist
+2025-09-24 05:20:32,330 - INFO - Updating status for users with NULL status...
+2025-09-24 05:20:32,331 - INFO - Status update completed
+2025-09-24 05:20:32,332 - INFO - Database migration completed successfully!
+2025-09-24 05:20:32,333 - INFO - Verifying database structure...
+2025-09-24 05:20:32,335 - INFO - Users table columns: ['id', 'username', 'email', 'hashed_password', 'balance', 'wallet_address', 'status', 'created_at', 'updated_at']
+2025-09-24 05:20:32,337 - INFO - Admins table columns: ['id', 'email', 'hashed_password', 'role', 'permissions', 'is_active', 'last_login', 'created_at', 'updated_at']
+2025-09-24 05:20:32,339 - INFO - Transactions table columns: ['id', 'user_id', 'type', 'amount', 'currency', 'status', 'transaction_hash', 'transaction_id', 'wallet_address', 'phone_number', 'provider', 'description', 'created_at', 'updated_at', 'notes', 'network', 'deposit_address_id']
+2025-09-24 05:20:32,341 - INFO - Total users: 0
+2025-09-24 05:20:32,347 - INFO - Total admins: 0
+2025-09-24 05:20:32,350 - INFO - Total transactions: 0
+2025-09-24 05:20:32,352 - INFO - 
+Migration process completed!
+2025-09-24 05:20:32,353 - INFO - Next steps:
+2025-09-24 05:20:32,353 - INFO - 1. Restart the server if it's running
+2025-09-24 05:20:32,354 - INFO - 2. Run the test again: python3 test_admin.py
