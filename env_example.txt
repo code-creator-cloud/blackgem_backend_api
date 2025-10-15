@@ -1,5 +1,5 @@
 # Database Configuration
-DATABASE_URL=sqlite:///./black_germ.db
+DATABASE_URL=postgresql://username:password@localhost:5432/black_germ_db
 
 # Security Configuration
 SECRET_KEY=your-super-secret-key-change-this-in-production

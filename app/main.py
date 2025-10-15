@@ -3,6 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
 import logging
 from fastapi import APIRouter, Depends, HTTPException, status
+from dotenv import load_dotenv
 from app.database import engine, get_db
 from app import models, schemas, auth
 from app.routers import users, transactions, ai_assistant
@@ -14,6 +15,9 @@ from app.routers import admin
 from app.routers import web3_deposits
 from app.background_tasks import start_background_tasks
 from app.logging_config import setup_logging
+
+# Load environment variables
+load_dotenv()
 
 # Initialize logging
 setup_logging()

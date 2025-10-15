@@ -1,14 +1,17 @@
+import os
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
+from dotenv import load_dotenv
 
-# SQLite database URL
-SQLALCHEMY_DATABASE_URL = "sqlite:///./black_germ.db"
+# Load environment variables
+load_dotenv()
+
+# PostgreSQL database URL from environment variables
+DATABASE_URL = os.getenv("DATABASE_URL", "postgresql://user:password@localhost:5432/black_germ_db")
 
 # Create SQLAlchemy engine
-engine = create_engine(
-    SQLALCHEMY_DATABASE_URL, connect_args={"check_same_thread": False}
-)
+engine = create_engine(DATABASE_URL)
 
 # Create SessionLocal class
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
