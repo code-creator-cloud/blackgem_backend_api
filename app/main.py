@@ -35,9 +35,10 @@ app = FastAPI(
 logger.info("Black Germ FastAPI application initialized")
 
 # Add CORS middleware
+import os
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173"],  # React frontend
+    allow_origins=["*"],  # ✅ Allow all origins
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
