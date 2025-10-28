@@ -1,0 +1,54 @@
+services:
+  - type: web
+    name: black-germ-backend
+    env: python
+    plan: starter  # recommended for production
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: DATABASE_URL
+        value: postgresql://blackgerm_user:r8TFPNrkj0wiul4SUoYqMQeUosgvlAOV@dpg-d40fii3uibrs73cq91rg-a.oregon-postgres.render.com/blackgerm
+      - key: SECRET_KEY
+        generateValue: true
+      - key: ALGORITHM
+        value: HS256
+      - key: ACCESS_TOKEN_EXPIRE_MINUTES
+        value: 30
+      - key: TRANSACTION_FEE_PERCENTAGE
+        value: 0.02
+      - key: MIN_TRANSACTION_AMOUNT
+        value: 1.0
+      - key: MAX_TRANSACTION_AMOUNT
+        value: 10000.0
+      - key: WITHDRAWAL_APPROVAL_THRESHOLD
+        value: 1000.0
+      - key: OPENAI_API_KEY
+        sync: false
+      - key: MTN_API_KEY
+        sync: false
+      - key: ORANGE_API_KEY
+        sync: false
+      - key: SMTP_HOST
+        value: smtp.gmail.com
+      - key: SMTP_PORT
+        value: 587
+      - key: SMTP_USERNAME
+        sync: false
+      - key: SMTP_PASSWORD
+        sync: false
+      - key: MAIL_FROM
+        value: babiladylan@gmail.com
+      - key: ALLOWED_ORIGINS
+        value: https://web-gamma-two-46.vercel.app,http://localhost:5173
+      - key: TRON_NETWORK
+        value: mainnet
+      - key: BSC_NETWORK
+        value: mainnet
+      - key: PLATFORM_TRC20_WALLET
+        sync: false
+      - key: PLATFORM_BEP20_WALLET
+        sync: false
+      - key: PLATFORM_TRC20_PRIVATE_KEY
+        sync: false
+      - key: PLATFORM_BEP20_PRIVATE_KEY
+        sync: false
